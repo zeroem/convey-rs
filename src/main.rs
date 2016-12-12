@@ -1,7 +1,8 @@
 #[macro_use]
 extern crate clap;
+extern crate iron;
 
-use admin;
+mod conveyors;
 
 fn main() {
     let matches = clap_app!(conveyors =>
@@ -21,6 +22,10 @@ fn main() {
             (about: "Query metrics from a running instance of conveyors")
         )
     ).get_matches();
+
+    if matches.is_present("start") {
+        conveyors::admin::start();
+    }
 
 
     println!("Hello, world!");
