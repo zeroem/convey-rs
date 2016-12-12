@@ -5,8 +5,9 @@ authors = ["Darrell Hamilton <darrell.noice@gmail.com>"]
 
 [dependencies]
 clap = "2.19.2"
-# hyper = "0.9.13"
 iron = "0.4.0"
+log = "0.3.6"
+env_logger = "0.3.5"
 
 [[bin]]
 name = "conveyors"

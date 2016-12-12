@@ -1,10 +1,17 @@
 #[macro_use]
 extern crate clap;
+
 extern crate iron;
+
+#[macro_use]
+extern crate log;
+extern crate env_logger;
 
 mod conveyors;
 
 fn main() {
+    env_logger::init().unwrap();
+
     let matches = clap_app!(conveyors =>
         (version: "0.0.1")
         (author: "Darrell Hamilton <darrell.noice@gmail.com>")
@@ -24,7 +31,9 @@ fn main() {
     ).get_matches();
 
     if matches.is_present("start") {
-        conveyors::admin::start();
+        info!("Starting up conveyors");
+        let admin_server = conveyors::admin::start();
+        info!("wat");
     }
 
 
