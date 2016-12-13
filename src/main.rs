@@ -21,6 +21,7 @@ fn main() {
         )
         (@subcommand start =>
             (about: "Start conveyors reverse proxy")
+            (@arg ADMIN_ADDR: --admin +takes_value "Sets the bind address for the admin API")
         )
         (@subcommand admin =>
             (about: "Administer a running instance of conveyors")
@@ -30,12 +31,13 @@ fn main() {
         )
     ).get_matches();
 
-    if matches.is_present("start") {
-        info!("Starting up conveyors");
-        let admin_server = conveyors::admin::start();
-        info!("wat");
+    let mut conveyors = self::conveyors::Conveyors::new();
+
+    if let Some(start_matches) = matches.subcommand_matches("start") {
+        if let Some(admin_bind) = start_matches.value_of("ADMIN_ADDR") {
+            conveyors.admin_bind(String::from(admin_bind));
+        }
+
+        conveyors.start()
     }
-
-
-    println!("Hello, world!");
 }
