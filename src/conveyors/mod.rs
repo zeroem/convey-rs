@@ -1,14 +1,16 @@
 extern crate iron;
 
 pub mod admin;
+pub mod frontend;
 
 use self::admin::Admin;
+use self::frontend::FrontEnd;
 
 use std::net::TcpListener;
 
 pub struct Conveyors {
     admin_api: Option<Admin>,
-    tcp_frontends: Vec<TcpListener>,
+    tcp_frontends: Vec<FrontEnd>,
 }
 
 impl Conveyors {
@@ -21,8 +23,8 @@ impl Conveyors {
         self
     }
 
-    pub fn add_tcp_frontend(&mut self, l: TcpListener) -> &Conveyors {
-        self.tcp_frontends.push(l);
+    pub fn add_tcp_frontend(&mut self, fe: FrontEnd) -> &Conveyors {
+        self.tcp_frontends.push(fe);
         self
     }
 
