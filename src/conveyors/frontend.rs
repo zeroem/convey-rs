@@ -1,17 +1,16 @@
-use std::net::TcpListener;
+use std::net::{TcpListener,ToSocketAddrs};
 
-pub struct FrontEnd {
-    listener: TcpListener,
+pub struct Frontend<'a, T: 'a + ToSocketAddrs> {
+    addr: &'a T,
+    listener: Option<TcpListener>,
 }
 
-impl FrontEnd {
-    pub fn new(addr: &str) -> FrontEnd {
-        if let Ok(listener) = TcpListener::bind(addr) {
-            FrontEnd {
-                listener: listener,
-            }
-        } else {
-            panic!("error binding socket")
+impl<'a, T: 'a + ToSocketAddrs> Frontend<'a, T> {
+    pub fn new(addr: &'a T) -> Frontend<T> {
+        Frontend {
+            addr: addr,
+            listener: None,
         }
     }
 }
+

@@ -9,7 +9,7 @@ extern crate env_logger;
 
 mod conveyors;
 
-use conveyors::frontend::FrontEnd;
+use conveyors::frontend::Frontend;
 
 fn main() {
     env_logger::init().unwrap();
@@ -45,7 +45,7 @@ fn main() {
         }
 
         if let Some(bind) = start_matches.value_of("BIND") {
-            conveyors.add_tcp_frontend(FrontEnd::new(bind));
+            conveyors.add_tcp_frontend(Frontend::new(bind));
         }
 
         conveyors.start()
